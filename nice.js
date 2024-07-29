@@ -8,11 +8,11 @@ document.getElementById('resumeForm').addEventListener('submit', function(event)
         const formData = new FormData();
         formData.append('resume', file);
 
-        // This is where you would normally send the file to the server
-        // For this example, we will just show a message
+        // 模擬文件上傳
         document.getElementById('output').textContent = 'Resume uploaded successfully!';
-        
-        // Example of sending the form data to a server
+        localStorage.setItem('uploadedFileName', file.name);
+
+        // 這裡可以加入實際上傳邏輯
         // fetch('/upload', {
         //     method: 'POST',
         //     body: formData
@@ -25,5 +25,17 @@ document.getElementById('resumeForm').addEventListener('submit', function(event)
         //   });
     } else {
         document.getElementById('output').textContent = 'Please upload a valid PDF file.';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadedFilesDiv = document.getElementById('uploadedFiles');
+    if (uploadedFilesDiv) {
+        const uploadedFileName = localStorage.getItem('uploadedFileName');
+        if (uploadedFileName) {
+            const fileItem = document.createElement('div');
+            fileItem.textContent = uploadedFileName;
+            uploadedFilesDiv.appendChild(fileItem);
+        }
     }
 });
